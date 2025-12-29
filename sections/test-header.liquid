@@ -1,0 +1,272 @@
+{{ 'test-header.css' | asset_url | stylesheet_tag }}
+
+<header class="gift-header">
+  <div class="gift-header__container">
+    <div class="gift-header__logo">
+      {%- if section.settings.logo != blank -%}
+        <img 
+          src="{{ section.settings.logo | image_url: width: 200 }}" 
+          alt="{{ section.settings.logo_text | default: shop.name }}"
+          width="auto"
+          height="{{ section.settings.logo_height }}"
+          loading="eager"
+        >
+      {%- else -%}
+        <span class="gift-header__logo-text">{{ section.settings.logo_text | default: shop.name }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="gift-header__tagline">
+      <p>{{ section.settings.tagline }}</p>
+    </div>
+
+    <div class="gift-header__cta">
+      {%- if section.settings.button_text != blank -%}
+        <a 
+          href="{{ section.settings.button_link }}" 
+          class="gift-header__button"
+          style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }};"
+        >
+          {{ section.settings.button_text }}
+          <span class="gift-header__arrow">→</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+<style>
+  .gift-header {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .gift-header__container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .gift-header__logo {
+    flex-shrink: 0;
+  }
+
+  .gift-header__logo img {
+    display: block;
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+  }
+
+  .gift-header__logo-text {
+    font-size: {{ section.settings.logo_font_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+  }
+
+  .gift-header__tagline {
+    flex: 1;
+    text-align: center;
+  }
+
+  .gift-header__tagline p {
+    margin: 0;
+    font-size: {{ section.settings.tagline_font_size }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  .gift-header__cta {
+    flex-shrink: 0;
+  }
+
+  .gift-header__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+
+  .gift-header__button:hover {
+    opacity: 0.9;
+    transform: translateX(3px);
+  }
+
+  .gift-header__arrow {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .gift-header__button:hover .gift-header__arrow {
+    transform: translateX(5px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .gift-header__container {
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .gift-header__tagline {
+      order: 3;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Gift Header",
+  "tag": "section",
+  "class": "section-gift-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text (if no image)",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo Height",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "logo_font_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo Text Font Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline Text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "range",
+      "id": "tagline_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tagline Font Size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#F7E94B"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Header"
+    }
+  ]
+}
+{% endschema %}
