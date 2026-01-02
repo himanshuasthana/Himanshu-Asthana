@@ -51,19 +51,6 @@
   </div>
 </section>
 
-{%- if section.settings.show_bottom_message and section.settings.bottom_message != blank -%}
-  <div class="gift-banner__bottom-message" style="
-    background-color: {{ section.settings.bottom_message_bg_color }};
-    padding: {{ section.settings.bottom_message_padding }}px 20px;
-  ">
-    <p style="
-      color: {{ section.settings.bottom_message_text_color }};
-      font-size: {{ section.settings.bottom_message_font_size }}px;
-      letter-spacing: {{ section.settings.bottom_message_letter_spacing }}em;
-    ">{{ section.settings.bottom_message }}</p>
-  </div>
-{%- endif -%}
-
 <style>
   .gift-banner {
     position: relative;
@@ -191,18 +178,6 @@
     .gift-banner__content {
       max-width: 100% !important;
     }
-  }
-
-  /* Bottom Message Styles */
-  .gift-banner__bottom-message {
-    text-align: center;
-    border-top: 1px solid {{ section.settings.bottom_message_border_color }};
-  }
-
-  .gift-banner__bottom-message p {
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: {{ section.settings.bottom_message_font_weight }};
   }
 </style>
 
@@ -443,82 +418,6 @@
       "id": "text_color",
       "label": "Text Color",
       "default": "#000000"
-    },
-    {
-      "type": "header",
-      "content": "Bottom Message"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_bottom_message",
-      "label": "Show Bottom Message",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "bottom_message",
-      "label": "Bottom Message Text",
-      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
-    },
-    {
-      "type": "range",
-      "id": "bottom_message_font_size",
-      "min": 10,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "label": "Font Size",
-      "default": 12
-    },
-    {
-      "type": "select",
-      "id": "bottom_message_font_weight",
-      "label": "Font Weight",
-      "options": [
-        { "value": "400", "label": "Regular" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" },
-        { "value": "700", "label": "Bold" }
-      ],
-      "default": "500"
-    },
-    {
-      "type": "range",
-      "id": "bottom_message_letter_spacing",
-      "min": 0,
-      "max": 0.3,
-      "step": 0.02,
-      "unit": "em",
-      "label": "Letter Spacing",
-      "default": 0.1
-    },
-    {
-      "type": "range",
-      "id": "bottom_message_padding",
-      "min": 8,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "label": "Padding",
-      "default": 12
-    },
-    {
-      "type": "color",
-      "id": "bottom_message_bg_color",
-      "label": "Background Color",
-      "default": "#F5F5F5"
-    },
-    {
-      "type": "color",
-      "id": "bottom_message_text_color",
-      "label": "Text Color",
-      "default": "#333333"
-    },
-    {
-      "type": "color",
-      "id": "bottom_message_border_color",
-      "label": "Border Color",
-      "default": "#E0E0E0"
     }
   ],
   "presets": [
