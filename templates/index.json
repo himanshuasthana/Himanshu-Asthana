@@ -54,7 +54,7 @@
         "max_width": 1400,
         "padding_top": 16,
         "padding_bottom": 16,
-        "background_color": "#ffffff",
+        "background_color": "#f5f5f5",
         "text_color": "#000000"
       }
     },
@@ -86,7 +86,16 @@
         "padding_top": 60,
         "padding_bottom": 60,
         "background_color": "#f5f5f5",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "show_bottom_message": true,
+        "bottom_message": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "bottom_message_font_size": 14,
+        "bottom_message_font_weight": "500",
+        "bottom_message_letter_spacing": 0,
+        "bottom_message_padding": 8,
+        "bottom_message_bg_color": "#f5f5f5",
+        "bottom_message_text_color": "#333333",
+        "bottom_message_border_color": "#e0e0e0"
       }
     },
     "test_product_grid_qUkcpE": {
