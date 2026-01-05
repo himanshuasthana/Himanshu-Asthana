@@ -868,9 +868,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const colorOption = selectedOptions['Color'] || selectedOptions['Colour'] || '';
     const sizeOption = selectedOptions['Size'] || '';
 
-    return colorOption.toLowerCase() === bundleTriggerColor.toLowerCase() && 
-           sizeOption.toLowerCase() === bundleTriggerSize.toLowerCase();
+    // Check for Black color and M size
+    return colorOption.toLowerCase() === 'black' && 
+           (sizeOption.toLowerCase() === 'm' || sizeOption.toLowerCase() === 'medium');
   }
+
+  // Specific bundle variant ID to add when trigger conditions are met
+  const bundleVariantId = '{{ section.settings.bundle_variant_id | default: "42785591230569" }}';
 
   async function addToCart(variantId) {
     const response = await fetch('/cart/add.js', {
@@ -931,28 +935,21 @@ document.addEventListener('DOMContentLoaded', function() {
       // Add main product
       await addToCart(selectedVariantId);
 
-      // Check if bundle trigger is met (Black + Medium)
+      // Check if bundle trigger is met (Black + M/Medium)
       if (checkBundleTrigger()) {
-        const bundleProduct = await getBundleProduct();
-        if (bundleProduct && bundleProduct.variants && bundleProduct.variants.length > 0) {
-          // Add the first variant of the bundle product
-          await addToCart(bundleProduct.variants[0].id);
-          popupMessage.className = 'product-popup__message success';
-          popupMessage.textContent = 'Added to cart! Bonus: ' + bundleProduct.title + ' was also added!';
-        } else {
-          popupMessage.className = 'product-popup__message success';
-          popupMessage.textContent = 'Added to cart successfully!';
-        }
+        // Add the specific bundle variant
+        await addToCart(bundleVariantId);
+        popupMessage.className = 'product-popup__message success';
+        popupMessage.textContent = 'Added to cart! Bonus item was also added!';
       } else {
         popupMessage.className = 'product-popup__message success';
         popupMessage.textContent = 'Added to cart successfully!';
       }
 
-      // Reset button
+      // Redirect to cart page after a short delay
       setTimeout(function() {
-        addToCartBtn.disabled = false;
-        addToCartBtn.innerHTML = '{{ section.settings.popup_button_text | default: "ADD TO CART" }} <span class="product-popup__button-arrow">→</span>';
-      }, 2000);
+        window.location.href = '/cart';
+      }, 1000);
 
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -1567,7 +1564,14 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "bundle_trigger_size",
       "label": "Trigger Size",
       "info": "When this size is selected along with trigger color, bundle product is added",
-      "default": "Medium"
+      "default": "M"
+    },
+    {
+      "type": "text",
+      "id": "bundle_variant_id",
+      "label": "Bundle Variant ID",
+      "info": "The specific variant ID to add when trigger conditions are met",
+      "default": "42785591230569"
     },
     {
       "type": "header",
